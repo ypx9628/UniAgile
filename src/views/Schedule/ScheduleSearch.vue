@@ -254,6 +254,7 @@ export default{
                 console.log(error);
             });
         },
+
         searchEventsbyName(){
             const eventName = this.SearchInput.name;
             this.axios({
