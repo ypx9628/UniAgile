@@ -5,8 +5,10 @@
             <template>
                 <v-form>
                     <v-row class="mx-3 mt-3">
+                        <v-col cols="2">
                         <v-text-field
                             filled
+                            
                             rounded
                             dense
                             small
@@ -15,7 +17,8 @@
                             v-model="from_id"
                             prepend-inner-icon="mdi-map-marker"
                         ></v-text-field>
-
+                    </v-col>
+                        <v-col cols="2">
                         <v-text-field
                             filled
                             rounded
@@ -26,6 +29,7 @@
                             v-model="to_id"
                             prepend-inner-icon="mdi-map-marker"
                         ></v-text-field>
+                    </v-col>
                         <v-btn 
                         rounded color="info" 
                         class="mt-2 ml-3 font-weight-bold"
@@ -39,14 +43,14 @@
                         @click="showAllPoint">
                             展示所有坐标点
                         </v-btn>
-                        <v-btn @click="submitPos" text small rounded class="font-weight-bold">p2p</v-btn>
-                        <v-btn @click="viaMany" text small rounded class="font-weight-bold">viaMany</v-btn>
-                        <v-btn @click="changeMap" text small rounded class="font-weight-bold">选取导航坐标</v-btn>
+                        <v-btn @click="animePlay"  rounded color="info" class="mt-2 ml-2 font-weight-bold">动画展示</v-btn>
+                        <v-btn @click="submitPos"  rounded color="info" class="mt-2 ml-2 font-weight-bold">p2p</v-btn>
+                        <v-btn @click="viaMany" rounded color="info" class="mt-2 ml-2 font-weight-bold">viaMany</v-btn>
+                        <v-btn @click="changeMap" rounded color="info" class="mt-2 ml-2 font-weight-bold">选取导航坐标</v-btn>
+                        
                     </v-row>
                 </v-form>
 
-                
-                
                 <!-- <v-btn class="font-weight-bold ml-3">计算</v-btn> -->
             </template>
         </v-toolbar>
@@ -58,7 +62,7 @@
         elevation="2"
         justify-center
         
-        @click="addPoint">
+        @click="getMouseXY">
             <!-- <div  >
                 <canvas ref="canvas" width="750" height="1100"></canvas>
             </div> -->
@@ -71,8 +75,8 @@
                 <path 
                     v-bind:d="this.Pathsel == 0 ? this.Path1Data : this.Path2Data" 
                     fill="transparent" 
-                    stroke="blue" 
-                    stroke-width="10"></path>
+                    stroke="cyan" 
+                    stroke-width="5"></path>
             </svg>
             <!-- <div class="line-container">
                 <div
@@ -94,6 +98,9 @@
 <script>
 import anime from 'animejs/lib/anime.js';
 const axios = require('axios').default;
+// Vue.prototype.$Path1Data = this.path1Data;
+
+
 export default {
     name: 'Navigation',
     data: () => ({
@@ -127,7 +134,17 @@ export default {
 		Path2Data : "",
 		Path3Data : "",
 		Path4Data : "",
+        // Path:Vue.prototype.$Path,
+        
     }),
+
+    mounted(){
+        // Vue.prototype.$Path1Data = this.Path1Data;
+        Vue.prototype.$Path1Data = Navigation.data().Path1Data;
+        // Vue.prototype.$setPath1Data = Navigation.methods.setPath1Data;
+        // Vue.prototype.$setPath1Data = this.setPath1Data;
+        this.setPath1Data();
+    },
 
     methods:{
         addPoint(event){
@@ -142,7 +159,7 @@ export default {
             console.log(event.offsetX, event.offsetY);
             this.axios({
             method: 'post',
-            url: 'http://10.28.166.24:16660/map/add_point',
+            url: 'http://ds.nginx.show/map/add_point',
             params: {
                 x: x,
                 y: y
@@ -173,7 +190,7 @@ export default {
             //
             this.axios({
                 method: 'post',
-                url: 'http://10.28.166.24:16660/map/add_path',
+                url: 'http://ds.nginx.show/map/add_path',
                 params:{
                     aid: this.from_id,
                     bid: this.to_id
@@ -223,7 +240,7 @@ export default {
         showAllPoint(){
             this.axios({
                 method: 'post',
-                url: 'http://10.28.166.24:16660/map/show_points',
+                url: 'http://ds.nginx.show/map/show_points',
                 params:{},
             }).then(res=>{
                 console.log(res.data.data);
@@ -286,7 +303,7 @@ export default {
                 console.log(this.Pointdata[1], this.Pointdata[2]);
                 this.axios({
                     method: 'post',
-                    url: 'http://10.28.166.91:16660/guide/p2p',
+                    url: 'http://ds.nginx.show/guide/p2p',
                     params: {
                         // m1 : tmp1 ,
                         x1 : this.Pointdata[0].x ,
@@ -356,7 +373,7 @@ export default {
 
             this.axios({
                 method: 'post',
-                url: 'http://10.28.166.91:16660/guide/by_many',
+                url: 'http://ds.nginx.show/guide/by_many',
                 data:{
                     pointdata : this.Pointdata
                 },
@@ -394,7 +411,7 @@ export default {
                 translateY: path('y'),
                 rotate: path('angle'),
                 easing: 'linear',
-                duration : 2000
+                duration : this.Path1Data.length/8*200,
             });
         },
         changeMap() {
@@ -407,9 +424,15 @@ export default {
                 this.Pointdata = this.Pointdata.slice(0,0);
             }
         } ,
+        setPath1Data(){
+            this.Path1Data = this.$Path;
+            window.alert('setPath');
+        },
     },
 }
+
 </script>
+<!-- export default Navigation; -->
 
 <style >
 .map{
