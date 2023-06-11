@@ -151,14 +151,6 @@ function getDayEvents() {
   })
 }
 
-// function get_feb(){
-//   var year = this.$SYSTIME.year;
-//   if( (year % 100 != 0 && year % 4 == 0) || year % 400 == 0 ){
-//       month_day[2] = 29;
-//   }else{
-//       month_day[2] = 28;
-//   }
-// }
 
 function sim_start() {
   

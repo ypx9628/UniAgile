@@ -239,30 +239,7 @@ export default {
 
     }),
     methods: {
-        // refresh(){
-        //     this. SearchInput={id:'',name:'',loc:'',time:0}
-        //     this.res.data =[]
-        // },
-        // searchEventsbyId() {
-        //     const eventId = this.SearchInput.id;
-        //     this.axios({
-        //         method: 'get',
-        //         url: 'http://ds.nginx.show/events/eventId/' + eventId,
-        //         data: {
-        //             // eventId: eventId,
-        //         },
-        //         header: {
-        //             'Content-Type': 'application/json',
-        //         }
-        //     }).then(res => {
-        //         console.log(res);
-        //         for (var i = 0; i < res.data.data.length; i++) {
-        //             this.res_id.data[i] = res.data.data[i];
-        //         };
-        //     }).catch(function (error) {
-        //         console.log(error);
-        //     });
-        // },
+        
 
         searchEventsbyName() {
             const eventName = this.SearchInput.name;

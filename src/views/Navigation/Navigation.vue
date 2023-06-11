@@ -51,7 +51,6 @@
                     </v-row>
                 </v-form>
 
-                <!-- <v-btn class="font-weight-bold ml-3">计算</v-btn> -->
             </template>
         </v-toolbar>
 
@@ -63,9 +62,7 @@
         justify-center
         
         @click="getMouseXY">
-            <!-- <div  >
-                <canvas ref="canvas" width="750" height="1100"></canvas>
-            </div> -->
+            
             
             <div class="block">
                 <v-icon color="red">mdi-circle</v-icon>
@@ -286,14 +283,7 @@ export default {
             }
         } ,
         submitPos () {
-            // if (this.Posel == 0) {
-            //     this.map1 = Math.floor(this.selectedSrc.id / 10000) - 1;
-            //     this.map2 = Math.floor(this.selectedDst.id / 10000) - 1;
-
-            //     this.pos1.x = this.selectedSrc.x , this.pos1.y = this.selectedSrc.y;
-            //     this.pos2.x = this.selectedDst.x , this.pos2.y = this.selectedDst.y;
-            //     this.Posel = 2;
-            // }
+            
             
                 let tmp1 = this.map1 , tmp2 = this.map2; console.log(tmp1 , tmp2);
                 // let raction = 	
@@ -332,38 +322,6 @@ export default {
                         this.Posel = 0;
                 })
                         
-                        // action : raction
-                // },'',()=>{},(res)=>{
-                    
-                    
-                        // if(res.data.path3 == undefined) this.Path3Data = "";
-                        // else{
-                        //     res.data.path3.forEach((element , idx) => {
-                        //         if(idx == 0) this.Path3Data  = "M" + element.x  + " " + element.y  + " ";
-                        //         else this.Path3Data += "L" + element.x  + " " + element.y  + " ";
-                        //     });
-                        // }
-                        // if(res.data.path4 == undefined) this.Path4Data = "";
-                        // else{
-                        //     res.data.path4.forEach((element , idx) => {
-                        //         if(idx == 0) this.Path4Data  = "M" + element.x  + " " + element.y  + " ";
-                        //         else this.Path4Data += "L" + element.x  + " " + element.y  + " ";
-                        //     });
-                        // }
-                        // if (this.MapT == false) {
-                        //     if (tmp1 == 0) ;
-                        //     else if (tmp1 == 1) {
-                        //         [this.Path1Data , this.Path3Data] = [this.Path3Data , this.Path1Data];
-                        //         [this.Path2Data , this.Path4Data] = [this.Path4Data , this.Path2Data];
-                        //     }
-                        // } else {
-                        //     if (tmp1 == 1) ;
-                        //     else if (tmp1 == 0) {
-                        //         [this.Path1Data , this.Path3Data] = [this.Path3Data , this.Path1Data];
-                        //         [this.Path2Data , this.Path4Data] = [this.Path4Data , this.Path2Data];						
-                        //     }
-                        // }
-                    // },()=>{});
                 
             
         },
